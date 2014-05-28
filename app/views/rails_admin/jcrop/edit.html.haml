@@ -1,5 +1,5 @@
 - if params[:img_src]
-    = image_tag @object.send(@field).url, @image_tag_options
+    = image_tag params[:img_src], @image_tag_options
     = hidden_field_tag :crop_field, @field
     = hidden_field_tag :crop_model, @object.class.name
 - else
