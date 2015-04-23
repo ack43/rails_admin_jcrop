@@ -10,7 +10,7 @@ gem 'rails_admin'
 # recommended to require it explictly before rails_admin_jcrop
 # e.g. if you use carrierwave
 # gem 'carrierwave', :require => 'carrierwave'
-gem 'rails_admin_jcrop' #, git: 'git://github.com/janx/rails_admin_jcrop.git'
+gem 'ack_rails_admin_jcrop' #, git: 'git://github.com/ack43/rails_admin_jcrop.git'
 ```
 
 2. Configure your model field to use Jcrop:
@@ -43,7 +43,7 @@ end
 ```
 
 4. Done! Click the image on your RailsAdmin model edit page and enjoy cropping!
-![Cropping Screenshot](https://github.com/janx/rails_admin_jcrop/raw/master/screenshots/example.png)
+![Cropping Screenshot](https://github.com/ack43/rails_admin_jcrop/raw/master/screenshots/example.png)
 
 ### Tips ###
 
@@ -84,6 +84,9 @@ When `fit_image` is false (default)
 When `fit_image` is true
 
 ![fit_image true](https://github.com/janx/rails_admin_jcrop/raw/master/screenshots/fit_image_true.png)
+
+###### P.S. ######
+this text is copied from [source gem](https://github.com/janx/rails_admin_jcrop). Doesn't work for me. it's fixed from trueSize option and css.
 
 ## Localization ##
 
@@ -130,6 +133,7 @@ Any help is encouraged. Here are some ways you can contribute:
 
 ### Contributors ###
 
+* [Jan Xie](https://github.com/janx)
 * [Alan Rosin Sikora](https://github.com/alansikora) ([alansikora](https://github.com/alansikora))
 * [cec](https://github.com/cec)
 * [Alex Chien](https://github.com/AlexChien)
@@ -142,3 +146,4 @@ Life is easier with you.
 
 * [RailsAdmin](https://github.com/sferik/rails_admin/)
 * [Jcrop](http://deepliquid.com/content/Jcrop.html)
+* [ParentRailsAdminJcrop](https://github.com/janx/rails_admin_jcrop)

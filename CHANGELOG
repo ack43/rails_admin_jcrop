@@ -1,52 +1,9 @@
-== 1.3.0 ==
+== 0.0.1 ==
 
-* Update to work with latest rails_admin (https://github.com/janx/rails_admin_jcrop/pull/19)
+* Forked from https://github.com/janx/rails_admin_jcrop v.1.4.0 because it won`t work for me and i need fix it
+* Add ru-locale
+* html to slim
+* options moved to data- attribute
+* fix for modal dialog
 
-== 1.2.1 ==
-
-* fix rmagick/minimagic compatibility issue
-* fix paperclip crop parameters handling
-
-== 1.2.0 ==
-
-* fix image refresh after crop
-* only use carrierwave when both paperclip and carrierwave exist
-* work with both rails 3/4
-
-== 1.1.2 ==
-
-* more strict rails_admin dependency description in gemspec
-
-== 1.1.1 ==
-
-* fix autoload issue
-
-== 1.1.0 ==
-
-* compatible with RMagick2
-
-== 1.0.0 ==
-
-* compatible with rails_admin > 0.3.0
-* upgrade jquery and jquery.jcrop libraries
-* patch jquery.jcrop to work fix a buggy bootstrap release
-
-== 0.2.1 ==
-
-* compatible with paperclip > 3.1.4, fix infinite loop
-
-== 0.2.0 ==
-
-* support mongoid
-* support paperclip
-* new dependency: mini_magick
-* add fit_image option
-
-== 0.1.1 ==
-
-* fix id nil bug in route
-* update documents
-
-== 0.1.0 ==
-
-* rails_admin jcrop field with carrierwave, minimagick and active_record
+[Prev repo changelog](https://github.com/janx/rails_admin_jcrop/blob/4d7b32aa3a956452f50695cc3d923957dc6c0a02/CHANGELOG)

@@ -1,6 +1,6 @@
 module RailsAdminJcrop
   module AssetEngine
-    class <<self
+    class << self
       def thumbnail_names(obj, field)
         obj.class.uploaders[field.to_sym].versions.keys
       end

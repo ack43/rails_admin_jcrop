@@ -51,7 +51,7 @@
         bgColor: 'white',
         keySupport: false,
         onSelect: widget.updateCoordinates
-      }, rails_admin_jcrop_options);
+      }, widget.element.find('input[data-rails-admin-jcrop-options]').data('rails-admin-jcrop-options'));
       dialog.find('img.jcrop-subject').Jcrop(jcrop_options)
 
       form.attr("data-remote", true);
@@ -108,16 +108,36 @@
     _getModal: function() {
       var widget = this;
       if (!widget.dialog) {
-          widget.dialog = $('<div id="modal" class="modal fade"><div class="modal-header"><a href="#" class="close" data-dismiss="modal">&times;</a><h3 class="modal-header-title">...</h3></div><div class="modal-body">...</div><div class="modal-footer"><a href="#" class="btn cancel-action">...</a><a href="#" class="btn btn-primary save-action">...</a></div></div>');
+          widget.dialog = $('' +
+          '<div id="modal" class="modal fade">' +
+            '<div class="modal-dialog">' +
+              '<div class="modal-content">' +
+                '<div class="modal-header">' +
+                  '<a href="#" class="close" data-dismiss="modal">&times;</a>' +
+                  '<h3 class="modal-header-title">Please wait...</h3>' +
+                '</div>' +
+                '<div class="modal-body">...</div>' +
+                '<div class="modal-footer">' +
+                  '<a href="#" class="btn cancel-action">...</a>' +
+                  '<a href="#" class="btn btn-primary save-action">...</a>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>');
           widget.dialog.modal({
             keyboard: true,
             backdrop: true,
             show: true
           })
-          .on('hidden', function(){
+          .on('hidden.bs.modal', function(){
+            $(document).unbind("keyup")
             widget.dialog.remove();   // We don't want to reuse closed modals
             widget.dialog = null;
           });
+        $(document).unbind("keyup").bind("keyup", function(e) {
+          if (e.keyCode == 13) $('#modal .modal-footer .save-action').click();     // enter
+          if (e.keyCode == 27) $('#modal .modal-footer .cancel-action').click();   // esc
+        });
         }
       return this.dialog;
     }

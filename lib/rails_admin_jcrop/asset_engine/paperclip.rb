@@ -1,6 +1,6 @@
 module RailsAdminJcrop
   module AssetEngine
-    class <<self
+    class << self
       def thumbnail_names(obj, field)
         obj.send(field).styles.keys
       end
@@ -40,7 +40,10 @@ module Paperclip
           ary.delete_at i+1
           ary.delete_at i
         end
-        ['-crop', crop_params] + ary
+        repage_before = ['+repage']
+        crop          = ['-crop', crop_params]
+        repage_after  = ['+repage']
+        repage_before + crop + repage_after + ary
       else
         super
       end

@@ -1,0 +1,7 @@
+ru:
+  admin:
+    actions:
+      crop:
+        title: Обрезать
+        menu: Обрезать
+        breadcrumb: Обрезать

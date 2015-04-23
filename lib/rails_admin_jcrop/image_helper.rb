@@ -1,7 +1,7 @@
 module RailsAdminJcrop
   module ImageHelper
 
-    class <<self
+    class << self
       def crop(img, w, h, x, y)
         processor = img.class.name =~ /^MiniMagick/ ? 'minimagick' : 'rmagick'
         send("#{processor}_crop", img, w, h, x, y)
