@@ -6,7 +6,7 @@ module RailsAdminJcrop
       end
 
       def crop!(obj, field)
-        obj.send(field).reprocess!
+        obj.send(field).reprocess! && obj.save
       end
     end
   end
@@ -17,7 +17,6 @@ module Paperclip
   module NewClassMethods
     def has_attached_file(*args)
       super
-
       self.attachment_definitions.each do |name, options|
         options[:processors] ||= []
         options[:processors] << :rails_admin_jcropper

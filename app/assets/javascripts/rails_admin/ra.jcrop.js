@@ -5,7 +5,7 @@
       var widget = this;
       var dom_widget = widget.element;
 
-      var thumbnailLink = dom_widget.find('img.img-polaroid').parent();
+      var thumbnailLink = dom_widget.find('.jcrop_data_value');
       thumbnailLink.unbind().bind("click", function(e){
         widget._bindModalOpening(e, dom_widget.find('a.jcrop_handle').data('link'));
         return false;
@@ -77,7 +77,7 @@
           var select = widget.element.find('select').filter(":hidden");
 
           thumb = widget.element.find('a.jcrop_handle').data('thumb');
-          widget.element.find('img.img-polaroid').removeAttr('src').attr('src', json.urls[thumb] + '?' + new Date().valueOf());
+          widget.element.find('.jcrop_data_value img').removeAttr('src').attr('src', json.urls[thumb] + '?' + new Date().valueOf());
 
           widget._trigger("success");
           dialog.modal("hide");

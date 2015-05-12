@@ -1,4 +1,11 @@
-- rails_admin_jcrop_options = field.jcrop_options.to_json
+- if field.jcrop_options.is_a?(Hash)
+  - rails_admin_jcrop_options = field.jcrop_options.to_json
+- else
+  - _method = field.jcrop_options.to_sym
+  - if form.object.respond_to?(_method)
+    - rails_admin_jcrop_options = form.object.send(field.jcrop_options.to_sym).to_json
+  - else
+    - rails_admin_jcrop_options = {}
 
 = stylesheet_link_tag 'rails_admin/jquery.Jcrop'
 = stylesheet_link_tag 'rails_admin/ra.jcrop'
@@ -9,7 +16,7 @@
 
 .toggle{style=('display:none;' if file and field.delete_method and form.object.send(field.delete_method) == '1')}
   - if value = field.pretty_value
-    = value
+    .jcrop_data_value= value
   = form.file_field(field.name, field.html_attributes.reverse_merge({data: {fileupload: true, rails_admin_jcrop_options: rails_admin_jcrop_options } }))
 
   - url = jcrop_path(model_name: form.object.class.to_param, modal: true, id: form.object.id, field: field.name, fit_image: field.fit_image)
