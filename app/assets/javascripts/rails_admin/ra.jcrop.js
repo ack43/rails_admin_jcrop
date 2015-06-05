@@ -126,7 +126,7 @@
           '</div>');
           widget.dialog.modal({
             keyboard: true,
-            backdrop: true,
+            backdrop: false,
             show: true
           })
           .on('hidden.bs.modal', function(){

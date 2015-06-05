@@ -1,5 +1,17 @@
 .jcrop_data_value
   cursor: pointer
+  display: inline-block
+  &:hover
+    font-weight: bold
+  &:active
+    .title_link_hint
+      color: black
+  .title_link_hint
+    color: blue
+    display: inline-block
+    border-bottom: 1px solid blue
+    margin-bottom: 5px
+    line-height: 14px
 
 .jcrop_data_value img, .jcrop_type .img-polaroid
   min-width: 50px
