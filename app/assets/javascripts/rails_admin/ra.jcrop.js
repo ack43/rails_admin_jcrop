@@ -103,7 +103,7 @@
           var json = $.parseJSON(data.responseText);
           var select = widget.element.find('select').filter(":hidden");
 
-          thumb = widget.element.find('a.jcrop_handle').data('thumb');
+          thumb = widget.element.find('a.jcrop_handle').data('thumb') || "original";
           widget.element.find('.jcrop_data_value img').removeAttr('src').attr('src', json.urls[thumb] + '?' + new Date().valueOf());
 
           widget._trigger("success");

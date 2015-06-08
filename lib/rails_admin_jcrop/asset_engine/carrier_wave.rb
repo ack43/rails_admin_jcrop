@@ -46,7 +46,7 @@ module RailsAdmin
             end
 
             base.register_instance_option(:thumb_method) do
-              @thumb_method ||= ((versions = bindings[:object].send(name).versions.keys).find{|k| k.in?([:thumb, :thumbnail, 'thumb', 'thumbnail'])} || versions.first.to_s)
+              @thumb_method ||= ((versions = bindings[:object].send(name).versions.keys).find{|k| k.in?([:thumb, :thumbnail, 'thumb', 'thumbnail'])} || (versions.first || "original").to_s)
             end
 
             base.register_instance_option(:delete_method) do
