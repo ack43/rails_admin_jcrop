@@ -14,11 +14,12 @@
 
 - file = form.object.send(field.method_name).presence
 
-.toggle{style=('display:none;' if file and field.delete_method and form.object.send(field.delete_method) == '1')}
+- _add_class = field.pretty_value ? "jcrop_data_value" : ""
+.toggle{class="#{_add_class}" style=('display:none;' if file and field.delete_method and form.object.send(field.delete_method) == '1')}
   - if value = field.pretty_value
-    .jcrop_data_value
+    .preview
       .title_link_hint= "Обрезать"
-      div
+      .image_block
         = value
   = form.file_field(field.name, field.html_attributes.reverse_merge({data: {fileupload: true, rails_admin_jcrop_options: rails_admin_jcrop_options } }))
 

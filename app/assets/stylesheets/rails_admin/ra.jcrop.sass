@@ -1,11 +1,13 @@
 .jcrop_data_value
   cursor: pointer
   display: inline-block
-  &:hover
-    font-weight: bold
-  &:active
-    .title_link_hint
-      color: black
+  .preview
+    &:hover
+      .title_link_hint
+        font-weight: bold
+    &:active
+      .title_link_hint
+        color: black
   .title_link_hint
     color: blue
     display: inline-block
@@ -18,3 +20,7 @@
 
 .jcrop-holder, .jcrop-subject
   max-width: 960px !important
+
+.jcrop-holder
+  border: 1px solid black
+  margin: 0px auto

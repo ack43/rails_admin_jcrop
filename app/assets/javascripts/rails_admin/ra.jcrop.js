@@ -5,11 +5,37 @@
       var widget = this;
       var dom_widget = widget.element;
 
-      var thumbnailLink = dom_widget.find('.jcrop_data_value');
+      var thumbnailLink = dom_widget.find('.jcrop_data_value .preview');
       thumbnailLink.unbind().bind("click", function(e){
         widget._bindModalOpening(e, dom_widget.find('a.jcrop_handle').data('link'));
         return false;
       });
+      dom_widget.find('[data-fileupload]').unbind("change").bind("change", function() {
+        var input = this;
+        var image_container = $("#" + input.id).parent().children(".preview");
+        if (image_container.length > 0) {
+          if (image_container[0].tagName != "img") {
+            image_container.parent().removeClass("jcrop_data_value");
+            image_container.remove();
+          }
+          image_container = $("#" + input.id).parent().children(".preview");
+        }
+        if (image_container.length == 0) {
+          image_container = $("#" + input.id).parent().prepend($('<img />').addClass('preview')).find('img.preview');
+          image_container.parent().find('img:not(.preview)').hide();
+          ext = $("#" + input.id).val().split('.').pop().toLowerCase();
+        }
+        if (input.files && input.files[0] && $.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'bmp']) != -1) {
+          reader = new FileReader();
+          reader.onload = function (e) {
+            image_container.attr("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+          image_container.show();
+        } else {
+          image_container.hide();
+        }
+      })
     },
 
     _bindModalOpening: function(e, url) {
@@ -49,6 +75,7 @@
 
       var jcrop_options = $.extend({
         bgColor: 'white',
+        bgOpacity: 0.4,
         keySupport: false,
         onSelect: widget.updateCoordinates
       }, widget.element.find('input[data-rails-admin-jcrop-options]').data('rails-admin-jcrop-options'));
@@ -130,7 +157,7 @@
             show: true
           })
           .on('hidden.bs.modal', function(){
-            $(document).unbind("keyup")
+            $(document).unbind("keyup");
             widget.dialog.remove();   // We don't want to reuse closed modals
             widget.dialog = null;
           });

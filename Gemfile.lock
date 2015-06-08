@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ack_rails_admin_jcrop (0.0.3)
+    ack_rails_admin_jcrop (0.0.4)
       mini_magick
       rails (>= 3.0.0)
       rails_admin (>= 0.3.0)
