@@ -29,6 +29,7 @@
 
 - if field.optional? and field.errors.blank? and file and field.delete_method
   - onclick = "$(this).siblings('[type=checkbox]').click(); $(this).siblings('.toggle').toggle('slow'); jQuery(this).toggleClass('btn-danger btn-info'); return false;"
+  br
   = link_to "#", data: {toggle:'button'}, onclick: onclick, class: "btn btn-info" do
     i.icon-white.icon-trash
     = "#{I18n.t('admin.actions.delete.menu').capitalize} #{field.method_name}"

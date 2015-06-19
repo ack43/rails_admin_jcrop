@@ -73,7 +73,7 @@ module RailsAdmin
             end
 
             base.register_instance_option(:delete_method) do
-              nil
+              "delete_#{name}" if bindings[:object].respond_to?("delete_#{name}")
             end
           end
 
