@@ -23,7 +23,8 @@
         = value
   = form.file_field(field.name, field.html_attributes.reverse_merge({data: {fileupload: true, rails_admin_jcrop_options: rails_admin_jcrop_options } }))
 
-  - url = jcrop_path(model_name: form.object.class.to_param, modal: true, id: form.object.id, field: field.name, fit_image: field.fit_image)
+  - model_name = form.object.class.to_param.gsub("::", "~").underscore
+  - url = jcrop_path(model_name: model_name, modal: true, id: form.object.id, field: field.name, fit_image: field.fit_image)
   - link_data = {link: url, thumb: field.thumb_method || "original"}
   = link_to 'Edit Image', '#', data: link_data, style: 'display:none', class: "jcrop_handle"
 
