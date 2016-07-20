@@ -172,5 +172,5 @@
 })(jQuery);
 
 $(function() {
-  $('div.jcrop_type').jcropForm();
+  $('div.jcrop_type, div.enjoy_image_type').jcropForm();
 });
