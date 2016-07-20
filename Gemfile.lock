@@ -3,8 +3,7 @@ PATH
   specs:
     ack_rails_admin_jcrop (0.0.8)
       mini_magick
-      rails (>= 3.0.0)
-      rails_admin (>= 0.3.0)
+      rails_admin (~> 0.8.1)
 
 GEM
   remote: https://rubygems.org/
