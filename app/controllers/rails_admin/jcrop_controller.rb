@@ -58,7 +58,7 @@ module RailsAdmin
     end
 
     def update
-      @object.rails_admin_crop! params
+      @object.rails_admin_crop! params.merge(crop_process_before: '+repage', crop_process_after: '+repage')
 
       respond_to do |format|
         format.html { redirect_to_on_success }

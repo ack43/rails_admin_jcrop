@@ -40,10 +40,12 @@ module Paperclip
           ary.delete_at i+1
           ary.delete_at i
         end
-        repage_before = ['+repage']
-        crop          = ['-crop', crop_params]
-        repage_after  = ['+repage']
-        repage_before + crop + repage_after + ary
+
+        process_before  = [@attachment.instance.crop_process_before]
+        crop            = ['-crop', crop_params]
+        process_after   = [@attachment.instance.crop_process_after]
+
+        process_before + crop + process_after + ary
       else
         super
       end
@@ -51,7 +53,17 @@ module Paperclip
 
     def crop_params
       target = @attachment.instance
-      "'#{target.crop_w.to_i}x#{target.crop_h.to_i}+#{target.crop_x.to_i}+#{target.crop_y.to_i}'"
+
+      w = target.crop_w.to_i
+      h = target.crop_h.to_i
+      x = target.crop_x.to_i
+      y = target.crop_y.to_i
+
+      x = "+#{x}" if x >= 0
+      y = "+#{y}" if y >= 0
+      geometry = "#{w}x#{h}#{x}#{y}"
+
+      geometry
     end
   end
 

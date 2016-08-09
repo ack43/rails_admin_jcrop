@@ -8,7 +8,10 @@ module RailsAdminJcrop
       end
 
       def minimagick_crop(img, w, h, x, y)
-        geometry = "#{w}x#{h}+#{x}+#{y}"
+        x = "+#{x}" if x >= 0
+        y = "+#{y}" if y >= 0
+        geometry = "#{w}x#{h}#{x}#{y}"
+
         img.crop geometry
       end
 
