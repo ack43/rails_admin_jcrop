@@ -21,10 +21,18 @@ module RailsAdminJcrop
 
 
 
-
+      # use it like this:
+      # after_save do
+      #   auto_rails_admin_jcrop(:image)
+      # end
+      # def image_default_crop_params
+      #   if image and !image_file_name.blank?
+      #     default_crop_params_for_center(:image, 40, 40)
+      #   end
+      # end
       def auto_rails_admin_jcrop(field)
-        if !rails_admin_cropping? and self.try("#{field}_default_crop_params") and self.try("#{field}_updated_at_changed?")
-          rails_admin_crop! self.send("#{field}_default_crop_params")
+        if !rails_admin_cropping? and self.try("#{field}_updated_at_changed?") and (_crop_params = self.try("#{field}_default_crop_params"))
+          rails_admin_crop! _crop_params
         end
       end
 

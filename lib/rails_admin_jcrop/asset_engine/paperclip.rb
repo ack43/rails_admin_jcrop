@@ -6,7 +6,8 @@ module RailsAdminJcrop
       end
 
       def crop!(obj, field)
-        obj.send(field).reprocess!
+        _field = obj.send(field)
+        _field.reprocess!(*(_field.styles.keys - [:original]))
       end
     end
   end
@@ -34,7 +35,7 @@ module Paperclip
 
   class RailsAdminJcropper < Thumbnail
     def transformation_command
-      if @attachment.instance.rails_admin_cropping?
+      if @attachment.instance.rails_admin_cropping? and @options[:style] != :original
         ary = super
         if i = ary.index('-crop')
           ary.delete_at i+1
