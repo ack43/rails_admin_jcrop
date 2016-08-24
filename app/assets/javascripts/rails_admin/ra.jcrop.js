@@ -172,5 +172,6 @@
 })(jQuery);
 
 $(function() {
-  $('div.jcrop_type, div.enjoy_image_type').jcropForm();
+  // EnjoyCMS and HancockCMS support - temporary
+  $('div.jcrop_type, div.enjoy_image_type, div.hancock_image_type').jcropForm();
 });
