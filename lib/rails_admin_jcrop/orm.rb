@@ -15,6 +15,7 @@ module RailsAdminJcrop
       end
 
       def rails_admin_crop!(params)
+        puts params.inspect
         CropFields.each {|f| self.send "#{f}=", params[f] }
         ::RailsAdminJcrop::AssetEngine.crop!(self, self.crop_field) if self.rails_admin_cropping?
       end
