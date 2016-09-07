@@ -5,13 +5,13 @@ module RailsAdminJcrop
         obj.send(field).styles.keys
       end
 
-      def crop(obj, field)
+      def crop!(obj, field)
         _field = obj.send(field)
         _field.reprocess!(*(_field.styles.keys - [:original]))
         # _field.reprocess_without_saving_instance(*(_field.styles.keys - [:original]))
       end
 
-      def crop!(obj, field)
+      def crop(obj, field)
         _field = obj.send(field)
         # _field.reprocess!(*(_field.styles.keys - [:original]))
         _field.reprocess_without_saving_instance(*(_field.styles.keys - [:original]))
@@ -23,6 +23,7 @@ end
 module Paperclip
 
   class Attachment
+    # remaded from reprocess!
     def reprocess_without_saving_instance(*style_args)
       saved_only_process, @options[:only_process] = @options[:only_process], style_args
       saved_preserve_files, @options[:preserve_files] = @options[:preserve_files], true
