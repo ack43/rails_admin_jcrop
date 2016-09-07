@@ -5,15 +5,40 @@ module RailsAdminJcrop
         obj.send(field).styles.keys
       end
 
-      def crop!(obj, field)
+      def crop(obj, field)
         _field = obj.send(field)
         _field.reprocess!(*(_field.styles.keys - [:original]))
+        # _field.reprocess_without_saving_instance(*(_field.styles.keys - [:original]))
+      end
+
+      def crop!(obj, field)
+        _field = obj.send(field)
+        # _field.reprocess!(*(_field.styles.keys - [:original]))
+        _field.reprocess_without_saving_instance(*(_field.styles.keys - [:original]))
       end
     end
   end
 end
 
 module Paperclip
+
+  class Attachment
+    def reprocess_without_saving_instance(*style_args)
+      saved_only_process, @options[:only_process] = @options[:only_process], style_args
+      saved_preserve_files, @options[:preserve_files] = @options[:preserve_files], true
+      begin
+        assign(self)
+        save
+        # instance.save
+      rescue Errno::EACCES => e
+        warn "#{e} - skipping file."
+        false
+      ensure
+        @options[:only_process] = saved_only_process
+        @options[:preserve_files] = saved_preserve_files
+      end
+    end
+  end
 
   module RailsAdminJcropperMethods
     def has_attached_file(*args)

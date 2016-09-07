@@ -15,9 +15,13 @@ module RailsAdminJcrop
       end
 
       def rails_admin_crop!(params)
-        puts params.inspect
         CropFields.each {|f| self.send "#{f}=", params[f] }
         ::RailsAdminJcrop::AssetEngine.crop!(self, self.crop_field) if self.rails_admin_cropping?
+      end
+
+      def rails_admin_crop(params)
+        CropFields.each {|f| self.send "#{f}=", params[f] }
+        ::RailsAdminJcrop::AssetEngine.crop(self, self.crop_field) if self.rails_admin_cropping?
       end
 
 
@@ -33,7 +37,7 @@ module RailsAdminJcrop
       # end
       def auto_rails_admin_jcrop(field)
         if !rails_admin_cropping? and self.try("#{field}_updated_at_changed?") and (_crop_params = self.try("#{field}_default_crop_params"))
-          rails_admin_crop! _crop_params
+          rails_admin_crop _crop_params
         end
       end
 
