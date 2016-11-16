@@ -35,23 +35,22 @@ module RailsAdminJcrop
       #     default_crop_params_for_center(:image, 40, 40)
       #   end
       # end
-      def auto_rails_admin_jcrop(field)
-        if !rails_admin_cropping? and self.try("#{field}_updated_at_changed?") and (_crop_params = self.try("#{field}_default_crop_params"))
+      def auto_rails_admin_jcrop(_field_name)
+        if !rails_admin_cropping? and self.try("#{_field_name}_updated_at_changed?") and (_crop_params = self.try("#{_field_name}_default_crop_params"))
           rails_admin_crop _crop_params
         end
       end
 
-      def default_crop_params_for_left_top(field, width, height, left_offset = 0, top_offset = 0)
+      def default_crop_params_for_left_top(_field_name, width, height, left_offset = 0, top_offset = 0)
         {
-          crop_x: left_offset, crop_y: left_offset, crop_w: width, crop_h: height, crop_field: field,
+          crop_x: left_offset, crop_y: left_offset, crop_w: width, crop_h: height, crop_field: _field_name,
           crop_process_before: '+repage', crop_process_after: '+repage'
         }
       end
 
-
-      def default_crop_params_for_center(field, width, height, left_offset = 0, top_offset = 0)
+      def default_crop_params_for_center(_field_name, width, height, left_offset = 0, top_offset = 0)
         {
-          crop_x: left_offset, crop_y: top_offset, crop_w: width, crop_h: height, crop_field: :image,
+          crop_x: left_offset, crop_y: top_offset, crop_w: width, crop_h: height, crop_field: _field_name,
           crop_process_before: '-gravity Center', crop_process_after: '+repage'
         }
       end

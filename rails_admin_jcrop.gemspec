@@ -8,13 +8,13 @@ Gem::Specification.new do |s|
   s.name        = "ack_rails_admin_jcrop"
   s.version     = RailsAdminJcrop::VERSION
   s.authors     = ["Alexander Kiseliev", "Jan Xie"]
-  s.email       = ["dev@enjoycreate.ru", "jan.h.xie@gmail.com", ]
-  s.homepage    = "https://github.com/enjoycreative/rails_admin_jcrop"
+  s.email       = ["dev@redrocks.pro", "jan.h.xie@gmail.com", ]
+  s.homepage    = "https://github.com/red-rocks/rails_admin_jcrop"
   s.summary     = "Jcrop plugin for rails admin. Forked from https://github.com/janx/rails_admin_jcrop"
   s.description = "#{s.summary} Image cropping made easy!"
 
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.markdown"]
 
-  s.add_dependency "rails_admin", "~> 0.8.1"
+  s.add_dependency "rails_admin", ">= 0.8.1"
   s.add_dependency "mini_magick"
 end
