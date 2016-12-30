@@ -16,7 +16,7 @@ module RailsAdminJcrop
       def crop(obj, field)
         _field = obj.send(field)
         _field.reprocess_without_saving_instance
-        
+
         # _field.reprocess!(*(_field.styles.keys - [:original]))
         # _field.reprocess_without_saving_instance(*(_field.styles.keys - [:original]))
       end

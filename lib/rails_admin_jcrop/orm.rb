@@ -36,6 +36,7 @@ module RailsAdminJcrop
       #   end
       # end
       def auto_rails_admin_jcrop(_field_name)
+        return if _field_name.nil?
         if !rails_admin_cropping? and self.try("#{_field_name}_updated_at_changed?") and (_crop_params = self.try("#{_field_name}_default_crop_params"))
           rails_admin_crop _crop_params
         end
