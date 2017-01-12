@@ -49,9 +49,11 @@ module Paperclip
     def has_attached_file(*args)
       super
       self.attachment_definitions.each do |name, options|
-        options[:processors] ||= []
-        options[:processors] << :rails_admin_jcropper
-        options[:processors].uniq!
+        unless options[:processors].is_a?(Proc)
+          options[:processors] ||= []
+          options[:processors] << :rails_admin_jcropper
+          options[:processors].uniq!
+        end
       end
     end
   end
