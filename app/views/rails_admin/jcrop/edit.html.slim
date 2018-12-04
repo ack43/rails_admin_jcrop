@@ -5,7 +5,12 @@
     = hidden_field_tag :crop_model, @object.class.name
 - else
   = form_tag nil, @form_options.merge({class: "form-horizontal denser"}) do
-    = image_tag @object.send(@field).url, @image_tag_options
+    - _field = @object.send(@field)
+    - _field = _field[:original] if _field.is_a?(Hash)
+    - path = (_field.respond_to?(:path) ? _field.path : _field.to_io)
+    - if File.exists?(path) 
+      = image_tag _field.url, @image_tag_options
+        
     = hidden_field_tag :crop_x
     = hidden_field_tag :crop_y
     = hidden_field_tag :crop_w

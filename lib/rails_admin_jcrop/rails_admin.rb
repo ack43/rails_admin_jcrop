@@ -29,11 +29,11 @@ module RailsAdmin
   end
 end
 
-RailsAdmin::Config::Fields.register_factory do |parent, properties, fields|
-  if (properties.respond_to?(:name) ? properties.name : properties[:name]) == :jcrop
-    fields << RailsAdmin::Config::Fields::Types::Jcrop.new(parent, :jcrop, properties)
-    true
-  else
-    false
-  end
-end
+# RailsAdmin::Config::Fields.register_factory do |parent, properties, fields|
+#   if (properties.respond_to?(:name) ? properties.name : properties[:name]) == :jcrop
+#     fields << RailsAdmin::Config::Fields::Types::Jcrop.new(parent, :jcrop, properties)
+#     true
+#   else
+#     false
+#   end
+# end

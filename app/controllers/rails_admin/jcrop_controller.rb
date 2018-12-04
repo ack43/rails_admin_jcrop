@@ -26,6 +26,8 @@ module RailsAdmin
 
           @file_path=@object.send(@field).path
         end
+
+        @image_tag_options[:'data-geometry'] = geometry(@file_path).join(",")
       #Condition for Paperclip.
       elsif @object.send(@field).class.to_s =~ /Paperclip/
 
@@ -36,9 +38,22 @@ module RailsAdmin
 
           @file_path=@object.send(@field).path
         end
-      end
 
-      @image_tag_options[:'data-geometry'] = geometry(@file_path).join(",")
+        @image_tag_options[:'data-geometry'] = geometry(@file_path).join(",")
+        #Condition for Shrine.
+      elsif @object.send(@field).class.to_s =~ /Shrine/
+
+        if (@object.send(@field).options[:storage].to_s =='s3')
+
+          @file_path=@object.send(@field).url
+        else
+
+          @file_path=@object.send(@field).to_io
+        end
+
+        metadata = @object.send(@field)[:original].metadata
+        @image_tag_options[:'data-geometry'] = [metadata["width"], metadata["height"]]
+      end
 
       if @fit_image_geometry
         fit_image_geometry = fit_image_geometry(@file_path)
