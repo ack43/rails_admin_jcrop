@@ -90,6 +90,7 @@
 
       dialog.find('.save-action').unbind().click(function(){
         form.submit();
+        dialog.addClass("submiting")
         return false;
       }).html(saveButtonText);
 

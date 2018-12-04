@@ -1,11 +1,11 @@
 module RailsAdminJcrop
   module AssetEngine
     class << self
-      def thumbnail_names(obj, field)
+      def cw_thumbnail_names(obj, field)
         obj.class.uploaders[field.to_sym].versions.keys
       end
 
-      def crop!(obj, field)
+      def cw_crop!(obj, field)
         obj.send(field).recreate_versions!
       end
     end

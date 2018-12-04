@@ -14,14 +14,14 @@ module RailsAdminJcrop
         CropFields.all? {|f| send(f).present?}
       end
 
-      def rails_admin_crop!(params)
+      def rails_admin_crop!(params, upload_plugin_prefix = nil)
         CropFields.each {|f| self.send "#{f}=", params[f] }
-        ::RailsAdminJcrop::AssetEngine.crop!(self, self.crop_field) if self.rails_admin_cropping?
+        ::RailsAdminJcrop::AssetEngine.send("#{upload_plugin_prefix}crop!", self, self.crop_field) if self.rails_admin_cropping?
       end
 
-      def rails_admin_crop(params)
+      def rails_admin_crop(params, upload_plugin_prefix = nil)
         CropFields.each {|f| self.send "#{f}=", params[f] }
-        ::RailsAdminJcrop::AssetEngine.crop(self, self.crop_field) if self.rails_admin_cropping?
+        ::RailsAdminJcrop::AssetEngine.send("#{upload_plugin_prefix}crop", self, self.crop_field) if self.rails_admin_cropping?
       end
 
 

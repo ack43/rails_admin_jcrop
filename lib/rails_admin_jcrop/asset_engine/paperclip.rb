@@ -1,25 +1,34 @@
 module RailsAdminJcrop
   module AssetEngine
     class << self
-      def thumbnail_names(obj, field)
+      def pc_thumbnail_names(obj, field)
         obj.send(field).styles.keys
       end
 
-      def crop!(obj, field)
+      def pc_crop!(obj, field)
         _field = obj.send(field)
         _field.reprocess!
 
         # _field.reprocess!(*(_field.styles.keys - [:original]))
         # _field.reprocess_without_saving_instance(*(_field.styles.keys - [:original]))
       end
+      # backword compatibility
+      def crop!(obj, field) 
+        pc_crop!(obj, field)
+      end
 
-      def crop(obj, field)
+      def pc_crop(obj, field)
         _field = obj.send(field)
         _field.reprocess_without_saving_instance
 
         # _field.reprocess!(*(_field.styles.keys - [:original]))
         # _field.reprocess_without_saving_instance(*(_field.styles.keys - [:original]))
       end
+      # backword compatibility
+      def crop(obj, field)
+        pc_crop(obj, field)
+      end
+      
     end
   end
 end

@@ -1,15 +1,15 @@
 module RailsAdminJcrop
   module AssetEngine
     class << self
-      def thumbnail_names(obj, field)
-        obj.send(field).styles.keys
+      def s_thumbnail_names(obj, field)
+        obj.send(field).keys rescue []
       end
 
-      def crop!(obj, field)
+      def s_crop!(obj, field)
         _field = obj.send(:"reprocess_#{field}!")
       end
 
-      def crop(obj, field)
+      def s_crop(obj, field)
         _field = obj.send(:"reprocess_#{field}")
       end
     end
