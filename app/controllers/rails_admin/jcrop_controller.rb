@@ -17,45 +17,40 @@ module RailsAdmin
       @image_tag_options[:class] = "jcrop-subject"
       @file_path=''
       
+      current_field = @object.send(@field)
+      puts current_field.inspect
+      
       #Condition for Carrierwave.
-      if @object.send(@field).class.to_s =~ /Uploader/ and defined?(Carrierwave)
-      
-        if @object.send(@field)._storage.to_s =~ /Fog/
-
-          @file_path=@object.send(@field).url
+      if is_this_carrierwave?(current_field)
+        @file_path = if current_field._storage.to_s =~ /Fog/
+          current_field.url
         else
-
-          @file_path=@object.send(@field).path
+          current_field.path
         end
-
         @image_tag_options[:'data-geometry'] = geometry(@file_path).join(",")
+
       #Condition for Paperclip.
-      elsif @object.send(@field).class.to_s =~ /Paperclip/
-      
-        if (@object.send(@field).options[:storage].to_s =='s3')
-
-          @file_path=@object.send(@field).url
+      elsif is_this_paperclip?(current_field)
+        @file_path = if current_field.options[:storage].to_s =='s3'
+          current_field.url
         else
-
-          @file_path=@object.send(@field).path
+          current_field.path
         end
-
         @image_tag_options[:'data-geometry'] = geometry(@file_path).join(",")
-        #Condition for Shrine.
-      elsif (@object.send(@field).is_a?(Hash) or @object.send(@field).class.to_s =~ /UploadedFile/) and defined?(Shrine)  
-      
-        if defined?(Shrine::Storage::S3) and (@object.send(@field)[:original].storage.is_a?(Shrine::Storage::S3))
 
-          @file_path=@object.send(@field)[:original].url
+      #Condition for Shrine.
+      elsif is_this_shrine?(current_field)
+        current_field = current_field[:original] if current_field.is_a?(Hash)
+        @file_path = if defined?(::Shrine::Storage::S3) and (current_field.storage.is_a?(::Shrine::Storage::S3))
+          current_field.url
         else
-
-          @file_path=@object.send(@field)[:original].to_io
+          current_field.to_io
         end
 
-        metadata = @object.send(@field)[:original].metadata
+        metadata = current_field.metadata
         @image_tag_options[:'data-geometry'] = [metadata["width"], metadata["height"]].join(",")
       end
-      puts @image_tag_options.inspect
+      
 
       if @fit_image_geometry
         fit_image_geometry = fit_image_geometry(@file_path)
@@ -111,18 +106,16 @@ module RailsAdmin
 
     def upload_plugin_prefix(field = @field)
       _field = @object.send(field)
-      upload_plugin_prefix = nil
-      #Condition for Carrierwave.
-      if _field.class.to_s =~ /Uploader/ and defined?(Carrierwave)
-        upload_plugin_prefix = 'cw_'
-      #Condition for Paperclip.
-      elsif _field.class.to_s =~ /Paperclip/   
-        upload_plugin_prefix = 'pc_'
-        #Condition for Shrine.
-      elsif (_field.is_a?(Hash) ors _field.class.to_s =~ /UploadedFile/) and defined?(Shrine)    
-        upload_plugin_prefix = 's_'
+
+      if is_this_carrierwave?(_field)
+        'cw_'
+      elsif is_this_paperclip?(_field)
+        'pc_'
+      elsif is_this_shrine?(_field)
+        's_'
+      else 
+        nil
       end
-      upload_plugin_prefix
     end
 
     def thumbnail_names
@@ -151,6 +144,17 @@ module RailsAdmin
 
     def cropping?
       [:crop_x, :crop_y, :crop_w, :crop_h].all? {|c| params[c].present?}
+    end
+
+
+    def is_this_carrierwave?(_field)
+      !!(defined?(::Carrierwave) and _field.class.to_s =~ /Uploader/)
+    end
+    def is_this_paperclip?(_field)
+      !!(defined?(::Paperclip) and _field.class.to_s =~ /Paperclip/)
+    end
+    def is_this_shrine?(_field)
+      !!(defined?(::Shrine) and (_field.is_a?(Hash) or _field.class.to_s =~ /UploadedFile/))
     end
   end
 

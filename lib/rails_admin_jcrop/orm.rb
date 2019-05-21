@@ -15,6 +15,10 @@ module RailsAdminJcrop
       end
 
       def rails_admin_crop!(params, upload_plugin_prefix = nil)
+        # puts 'rails_admin_crop!'
+        # puts upload_plugin_prefix
+        # puts self.inspect
+        # puts self.crop_field.inspect
         CropFields.each {|f| self.send "#{f}=", params[f] }
         ::RailsAdminJcrop::AssetEngine.send("#{upload_plugin_prefix}crop!", self, self.crop_field) if self.rails_admin_cropping?
       end

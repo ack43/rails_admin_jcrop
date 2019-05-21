@@ -16,33 +16,38 @@ module RailsAdminJcrop
   end
 end
 
-# module RailsAdmin
-#   module Config
-#     module Fields
-#       module Types
-#         module UploaderMethods
+module RailsAdmin
+  module Config
+    module Fields
+      module Types
+        module UploaderMethods
 
-#           def self.included(base)
-#             base.register_instance_option(:cache_method) do
-#               nil
-#             end
+          def self.included(base)
+            base.register_instance_option(:cache_method) do
+              nil
+            end
 
-#             base.register_instance_option(:thumb_method) do
-#               @thumb_method ||= ((styles = bindings[:object].send(name).styles.keys).find{|k| k.in?([:thumb, :thumbnail, 'thumb', 'thumbnail'])} || styles.first.to_s)
-#             end
+            base.register_instance_option(:thumb_method) do
+              versions = bindings[:object].send(name).try(:keys)
+              @thumb_method ||= (versions.find{|k| k.in?([:thumb, :thumbnail, 'thumb', 'thumbnail'])} || versions.first.to_s)
+            end
 
-#             base.register_instance_option(:delete_method) do
-#               "delete_#{name}" if bindings[:object].respond_to?("delete_#{name}")
-#             end
-#           end
+            base.register_instance_option(:delete_method) do
+              "delete_#{name}" if bindings[:object].respond_to?("delete_#{name}")
+            end
+          end
 
-#           def resource_url(thumb = false)
-#             return nil unless (attachment = bindings[:object].send(name)).present?
-#             thumb.present? ? attachment.url(thumb) : attachment.url
-#           end
+          def resource_url(thumb = false)
+            return nil unless (attachment = bindings[:object].send(name)).present?
+            if attachment.is_a?(Hash)
+              (attachment[thumb] || attachment[:original]).url
+            else
+              attachment.url
+            end
+          end
 
-#         end
-#       end
-#     end
-#   end
-# end
+        end
+      end
+    end
+  end
+end
