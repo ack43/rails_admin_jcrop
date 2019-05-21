@@ -18,7 +18,6 @@ module RailsAdmin
       @file_path=''
       
       current_field = @object.send(@field)
-      puts current_field.inspect
       
       #Condition for Carrierwave.
       if is_this_carrierwave?(current_field)
