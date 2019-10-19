@@ -22,7 +22,7 @@ module RailsAdmin
             @fit_image ||= false
           end
 
-          include ::RailsAdmin::Config::Fields::Types::UploaderMethods
+          # include ::RailsAdmin::Config::Fields::Types::UploaderMethods
         end
       end
     end

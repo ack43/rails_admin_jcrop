@@ -1,3 +1,3 @@
 module RailsAdminJcrop
-  VERSION = "0.2.2.rc2".freeze
+  VERSION = "0.3.0.rc1".freeze
 end
